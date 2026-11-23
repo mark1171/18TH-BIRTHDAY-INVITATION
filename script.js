@@ -2,7 +2,7 @@
    EDIT THIS BLOCK — everything personal lives here
    ========================================================= */
 const CONFIG = {
-  eventDate: "2027-01-16T18:00:00+08:00",              // party start (Philippine time)
+  eventDate: "2027-02-26T18:00:00+08:00",              // party start (Philippine time)
   mapsQuery: "Starlight Garden Events Place, San Jose del Monte, Bulacan",
   rsvpUrl:   "https://forms.gle/your-form-link",       // your Google Form link
   roses: [
@@ -155,11 +155,56 @@ fill("#roses", CONFIG.roses);
 fill("#candles", CONFIG.candles);
 (function tabs(){
   const pairs = [["#tab-roses", "#panel-roses"], ["#tab-candles", "#panel-candles"]];
-  pairs.forEach(([t]) => $(t).addEventListener("click", () => {
-    pairs.forEach(([tt, pp]) => {
+  // Only wire up tabs that exist, so removing the Candles tab from the HTML causes no errors
+  const live = pairs.filter(([t, pp]) => $(t) && $(pp));
+  live.forEach(([t]) => $(t).addEventListener("click", () => {
+    live.forEach(([tt, pp]) => {
       const on = tt === t;
       $(tt).setAttribute("aria-selected", on);
       $(pp).hidden = !on;
     });
   }));
+})();
+
+
+/* ---------- falling petals ---------- */
+(function petals(){
+  if (reduceMotion) return;
+  const c = $("#petals"), ctx = c.getContext("2d");
+  const colors = ["167,139,250","124,92,255","169,196,255","228,220,255","91,123,255"];
+  let w, h, dpr, list = [];
+  function size(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    w = c.width = innerWidth * dpr; h = c.height = innerHeight * dpr;
+    const n = innerWidth < 600 ? 14 : 24;
+    list = Array.from({length: n}, () => make(true));
+  }
+  function make(anywhere){
+    return {
+      x: Math.random() * w, y: anywhere ? Math.random() * h : -20 * dpr,
+      s: (Math.random() * 5 + 5) * dpr,                    // petal size
+      vy: (Math.random() * .5 + .35) * dpr,                // fall speed
+      sway: (Math.random() * 30 + 15) * dpr, ph: Math.random() * 6.28, f: Math.random() * .012 + .006,
+      rot: Math.random() * 6.28, vr: (Math.random() - .5) * .025,
+      col: colors[(Math.random() * colors.length) | 0], a: Math.random() * .35 + .3
+    };
+  }
+  function petal(p){
+    ctx.save(); ctx.translate(p.x + Math.sin(p.ph) * p.sway, p.y); ctx.rotate(p.rot);
+    ctx.scale(1, .7 + .3 * Math.cos(p.ph));                // little flutter
+    ctx.fillStyle = `rgba(${p.col},${p.a})`;
+    const s = p.s; ctx.beginPath(); ctx.moveTo(0, -s);
+    ctx.bezierCurveTo(s * .9, -s * .5, s * .7, s * .7, 0, s);
+    ctx.bezierCurveTo(-s * .7, s * .7, -s * .9, -s * .5, 0, -s); ctx.fill(); ctx.restore();
+  }
+  function frame(){
+    ctx.clearRect(0, 0, w, h);
+    list.forEach((p, i) => {
+      p.y += p.vy; p.ph += p.f * 6; p.rot += p.vr;
+      if (p.y > h + 20 * dpr) list[i] = make(false);
+      petal(p);
+    });
+    requestAnimationFrame(frame);
+  }
+  addEventListener("resize", size); size(); frame();
 })();
