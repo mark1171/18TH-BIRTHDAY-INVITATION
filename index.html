@@ -13,7 +13,135 @@
 </head>
 
 <body>
+<!-- DECORATIONS: flower drawings used across the page (drawn once, reused with <use>) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+ <defs>
+  <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a2fe0"/><stop offset="1" stop-color="#2f6bff"/></linearGradient>
+  <linearGradient id="gB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#4f7bff"/></linearGradient>
+  <linearGradient id="gC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9a3ff"/><stop offset="1" stop-color="#7f94ff"/></linearGradient>
+  <linearGradient id="gD" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f0ff"/><stop offset="1" stop-color="#b9a3ff"/></linearGradient>
+  <linearGradient id="gLeaf" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1b1366"/><stop offset="1" stop-color="#4a34cf"/></linearGradient>
+  <linearGradient id="gLineL" gradientUnits="userSpaceOnUse" x1="20" y1="0" x2="118" y2="0"><stop offset="0" stop-color="#a78bfa" stop-opacity="0"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+  <linearGradient id="gLineR" gradientUnits="userSpaceOnUse" x1="182" y1="0" x2="280" y2="0"><stop offset="0" stop-color="#7f94ff"/><stop offset="1" stop-color="#7f94ff" stop-opacity="0"/></linearGradient>
+
+  <path id="petal" d="M50 54 C24 46 22 10 50 4 C78 10 76 46 50 54Z"/>
+  <path id="bpetal" d="M50 52 C30 42 26 14 40 8 C46 6 50 12 50 16 C50 12 54 6 60 8 C74 14 70 42 50 52Z"/>
+
+  <symbol id="rose" viewBox="0 0 100 100">
+   <g stroke="#e4dcff" stroke-opacity=".3" stroke-width=".8">
+    <g fill="url(#gA)">
+   <use href="#petal" transform="rotate(0 50 50)"/>
+   <use href="#petal" transform="rotate(72 50 50)"/>
+   <use href="#petal" transform="rotate(144 50 50)"/>
+   <use href="#petal" transform="rotate(216 50 50)"/>
+   <use href="#petal" transform="rotate(288 50 50)"/>
+    </g>
+    <g fill="url(#gB)" transform="translate(50 50) scale(.72) rotate(36) translate(-50 -50)">
+   <use href="#petal" transform="rotate(0 50 50)"/>
+   <use href="#petal" transform="rotate(72 50 50)"/>
+   <use href="#petal" transform="rotate(144 50 50)"/>
+   <use href="#petal" transform="rotate(216 50 50)"/>
+   <use href="#petal" transform="rotate(288 50 50)"/>
+    </g>
+    <g fill="url(#gC)" transform="translate(50 50) scale(.46) rotate(8) translate(-50 -50)">
+   <use href="#petal" transform="rotate(0 50 50)"/>
+   <use href="#petal" transform="rotate(72 50 50)"/>
+   <use href="#petal" transform="rotate(144 50 50)"/>
+   <use href="#petal" transform="rotate(216 50 50)"/>
+   <use href="#petal" transform="rotate(288 50 50)"/>
+    </g>
+    <circle cx="50" cy="50" r="7" fill="url(#gD)"/>
+    <path d="M50 44 C56 44 57 52 50 54 C45 55 43 49 47 47" fill="none" stroke="#6d3df0" stroke-width="1.4" stroke-linecap="round"/>
+   </g>
+  </symbol>
+
+  <symbol id="bloom" viewBox="0 0 100 100">
+   <g fill="url(#gB)" stroke="#e4dcff" stroke-opacity=".35" stroke-width=".8">
+   <use href="#bpetal" transform="rotate(0 50 50)"/>
+   <use href="#bpetal" transform="rotate(72 50 50)"/>
+   <use href="#bpetal" transform="rotate(144 50 50)"/>
+   <use href="#bpetal" transform="rotate(216 50 50)"/>
+   <use href="#bpetal" transform="rotate(288 50 50)"/>
+   </g>
+   <circle cx="50" cy="50" r="10" fill="url(#gD)"/>
+   <g fill="#5a2fe0">
+    <circle cx="50" cy="44" r="1.7"/><circle cx="56" cy="48" r="1.7"/><circle cx="54" cy="55" r="1.7"/><circle cx="46" cy="55" r="1.7"/><circle cx="44" cy="48" r="1.7"/>
+   </g>
+  </symbol>
+
+  <symbol id="leaf" viewBox="0 0 50 20">
+   <path d="M2 10 C12 -2 36 -2 48 10 C36 22 12 22 2 10Z" fill="url(#gLeaf)" stroke="#8b7cff" stroke-opacity=".55" stroke-width=".8"/>
+   <path d="M4 10 H44" stroke="#a78bfa" stroke-opacity=".6" stroke-width=".8"/>
+  </symbol>
+
+  <symbol id="spark" viewBox="0 0 20 20">
+   <path d="M10 0 C11 6 14 9 20 10 C14 11 11 14 10 20 C9 14 6 11 0 10 C6 9 9 6 10 0Z" fill="#e4dcff"/>
+  </symbol>
+
+  <!-- a corner bouquet: one rose, two blossoms, leaves, sparkles -->
+  <symbol id="cluster" viewBox="0 0 200 160">
+   <use href="#leaf" x="92" y="8" width="64" height="26" transform="rotate(-24 124 21)"/>
+   <use href="#leaf" x="2" y="58" width="60" height="24" transform="rotate(-68 32 70)"/>
+   <use href="#leaf" x="112" y="118" width="60" height="24" transform="rotate(16 142 130)"/>
+   <use href="#leaf" x="58" y="120" width="56" height="22" transform="rotate(74 86 131)"/>
+   <use href="#bloom" x="0" y="84" width="58" height="58"/>
+   <use href="#bloom" x="120" y="74" width="54" height="54"/>
+   <use href="#rose" x="38" y="22" width="96" height="96"/>
+   <use href="#spark" x="150" y="26" width="14" height="14"/>
+   <use href="#spark" x="178" y="54" width="9" height="9"/>
+   <use href="#spark" x="8" y="30" width="10" height="10"/>
+  </symbol>
+
+  <!-- a thin divider with a blossom in the middle -->
+  <symbol id="divider" viewBox="0 0 300 44">
+   <rect x="20" y="21.4" width="98" height="1.2" fill="url(#gLineL)"/>
+   <rect x="182" y="21.4" width="98" height="1.2" fill="url(#gLineR)"/>
+   <use href="#leaf" x="92" y="13" width="28" height="11" transform="rotate(-10 106 18)"/>
+   <use href="#leaf" x="180" y="13" width="28" height="11" transform="rotate(10 194 18)"/>
+   <use href="#spark" x="120" y="16" width="9" height="9"/>
+   <use href="#spark" x="171" y="16" width="9" height="9"/>
+   <use href="#bloom" x="132" y="4" width="36" height="36"/>
+  </symbol>
+
+  <!-- a flower crown that sits across the top of the portrait -->
+  <symbol id="garland" viewBox="0 0 240 64">
+   <use href="#leaf" x="4" y="30" width="54" height="21" transform="rotate(-14 31 40)"/>
+   <use href="#leaf" x="182" y="30" width="54" height="21" transform="rotate(14 209 40)"/>
+   <use href="#leaf" x="60" y="38" width="46" height="18" transform="rotate(16 83 47)"/>
+   <use href="#leaf" x="134" y="38" width="46" height="18" transform="rotate(-16 157 47)"/>
+   <use href="#bloom" x="24" y="14" width="36" height="36"/>
+   <use href="#bloom" x="180" y="14" width="36" height="36"/>
+   <use href="#bloom" x="66" y="12" width="32" height="32"/>
+   <use href="#bloom" x="142" y="12" width="32" height="32"/>
+   <use href="#spark" x="104" y="2" width="10" height="10"/>
+   <use href="#spark" x="128" y="54" width="8" height="8"/>
+   <use href="#rose" x="88" y="2" width="64" height="62"/>
+  </symbol>
+
+  <!-- a ring of leaves and blossoms that goes around the 18 badge -->
+  <symbol id="wreath" viewBox="0 0 120 120">
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(8 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(38 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(68 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(98 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(128 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(158 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(188 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(218 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(248 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(278 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(308 60 60)"/>
+   <use href="#leaf" x="101" y="55" width="19" height="10" transform="rotate(338 60 60)"/>
+   <use href="#bloom" x="104" y="51" width="18" height="18" transform="rotate(30 60 60)"/>
+   <use href="#bloom" x="104" y="51" width="18" height="18" transform="rotate(120 60 60)"/>
+   <use href="#bloom" x="104" y="51" width="18" height="18" transform="rotate(210 60 60)"/>
+   <use href="#bloom" x="104" y="51" width="18" height="18" transform="rotate(300 60 60)"/>
+  </symbol>
+ </defs>
+</svg>
+
 <canvas id="stars" aria-hidden="true"></canvas>
+<canvas id="petals" aria-hidden="true"></canvas>
 <canvas id="confetti" aria-hidden="true"></canvas>
 
 <!-- 1 · ENVELOPE -->
@@ -25,6 +153,8 @@
     <div class="env-front"></div>
     <div class="env-flap"></div>
     <div class="seal">18</div>
+    <svg class="flora fl-env2" viewBox="0 0 200 160" aria-hidden="true"><use href="#cluster" width="200" height="160"/></svg>
+    <svg class="flora fl-env" viewBox="0 0 200 160" aria-hidden="true"><use href="#cluster" width="200" height="160"/></svg>
   </div>
   <p class="intro-hint">Tap the seal to open</p>
 </div>
@@ -38,18 +168,25 @@
 
     <p class="pre rise" style="--d:0">Please join us for the 18th birthday of</p>
     <h1 class="name rise" style="--d:.15">Monica Va-ay</h1>
+    <svg class="flora twinkle sp1" viewBox="0 0 20 20" aria-hidden="true"><use href="#spark" width="20" height="20"/></svg>
+    <svg class="flora twinkle sp2" viewBox="0 0 20 20" aria-hidden="true"><use href="#spark" width="20" height="20"/></svg>
+    <svg class="flora twinkle sp3" viewBox="0 0 20 20" aria-hidden="true"><use href="#spark" width="20" height="20"/></svg>
     <p class="tag rise" style="--d:.3">Eighteen years, one unforgettable night</p>
 
     <div class="portrait rise" style="--d:.5">
+      <svg class="flora fl-crown" viewBox="0 0 240 64" aria-hidden="true"><use href="#garland" width="240" height="64"/></svg>
       <div class="frame arch"><div class="in">
         <!-- Replace with your friend's photo: photos/portrait.jpg -->
         <img src="photos/portrait.jpg" alt="Portrait of Monica Va-ay" onerror="this.remove()">
       </div></div>
+      <svg class="flora fl-p l" viewBox="0 0 200 160" aria-hidden="true"><use href="#cluster" width="200" height="160"/></svg>
+      <svg class="flora fl-p r" viewBox="0 0 200 160" aria-hidden="true"><use href="#cluster" width="200" height="160"/></svg>
+      <svg class="flora fl-wreath" viewBox="0 0 120 120" aria-hidden="true"><use href="#wreath" width="120" height="120"/></svg>
       <div class="age" aria-label="Eighteen">18</div>
     </div>
 
     <p class="when rise" style="--d:.8">
-      <b>Saturday, January 16, 2027</b>
+      <b>Friday, February 26, 2027</b>
       <span>Six in the evening</span>
     </p>
   </section>
@@ -68,6 +205,7 @@
 
     <h2>Location guide</h2>
     <div class="card loc">
+      <svg class="flora fl-card br" viewBox="0 0 200 160" aria-hidden="true"><use href="#cluster" width="200" height="160"/></svg>
       <dl>
         <div><dt>Reception</dt><dd>6:00 in the evening<small>Doors open at 5:30</small></dd></div>
         <div><dt>Venue</dt><dd>Starlight Garden Events Place<small>123 Sampaguita Street, San Jose del Monte, Bulacan</small></dd></div>
@@ -77,17 +215,18 @@
   </section>
 
   <!-- 4 · GALLERY -->
+  <div class="divider" aria-hidden="true"><svg class="flora" viewBox="0 0 300 44"><use href="#divider" width="300" height="44"/></svg></div>
   <section id="gallery">
     <h2>Monica Va-ay through the years</h2>
     <p class="lede">Tap a frame to see it bigger.</p>
     <div class="gallery">
       <!-- Replace each src with your own photos: photos/1.jpg … photos/6.jpg -->
-      <button class="frame arch g-arch" aria-label="Open photo 1"><div class="in"><img src="photos/1.jpg" alt="Monica Va-ay, photo 1" onerror="this.remove()"></div></button>
-      <button class="frame oval g-oval" aria-label="Open photo 2"><div class="in"><img src="photos/2.jpg" alt="Monica Va-ay, photo 2" onerror="this.remove()"></div></button>
-      <button class="frame soft g-soft" aria-label="Open photo 3"><div class="in"><img src="photos/3.jpg" alt="Monica Va-ay, photo 3" onerror="this.remove()"></div></button>
-      <button class="frame soft g-wide" aria-label="Open photo 4"><div class="in"><img src="photos/4.jpg" alt="Monica Va-ay, photo 4" onerror="this.remove()"></div></button>
-      <button class="frame round g-r1" aria-label="Open photo 5"><div class="in"><img src="photos/5.jpg" alt="Monica Va-ay, photo 5" onerror="this.remove()"></div></button>
-      <button class="frame round g-r2" aria-label="Open photo 6"><div class="in"><img src="photos/6.jpg" alt="Monica Va-ay, photo 6" onerror="this.remove()"></div></button>
+      <button class="frame arch g-arch" aria-label="Open photo 1"><div class="in"><img src="photos/1.jpg" alt="Monica Va-ay, photo 1" onerror="this.remove()"></div><svg class="flora fl-bloom bl" viewBox="0 0 44 44" aria-hidden="true"><use href="#rose" width="44" height="44"/></svg></button>
+      <button class="frame oval g-oval" aria-label="Open photo 2"><div class="in"><img src="photos/2.jpg" alt="Monica Va-ay, photo 2" onerror="this.remove()"></div><svg class="flora fl-bloom tr" viewBox="0 0 44 44" aria-hidden="true"><use href="#bloom" width="44" height="44"/></svg></button>
+      <button class="frame soft g-soft" aria-label="Open photo 3"><div class="in"><img src="photos/3.jpg" alt="Monica Va-ay, photo 3" onerror="this.remove()"></div><svg class="flora fl-bloom bl" viewBox="0 0 44 44" aria-hidden="true"><use href="#bloom" width="44" height="44"/></svg></button>
+      <button class="frame soft g-wide" aria-label="Open photo 4"><div class="in"><img src="photos/4.jpg" alt="Monica Va-ay, photo 4" onerror="this.remove()"></div><svg class="flora fl-bloom br" viewBox="0 0 44 44" aria-hidden="true"><use href="#rose" width="44" height="44"/></svg><svg class="flora fl-bloom tl" viewBox="0 0 44 44" aria-hidden="true"><use href="#bloom" width="44" height="44"/></svg></button>
+      <button class="frame round g-r1" aria-label="Open photo 5"><div class="in"><img src="photos/5.jpg" alt="Monica Va-ay, photo 5" onerror="this.remove()"></div><svg class="flora fl-bloom tr" viewBox="0 0 44 44" aria-hidden="true"><use href="#bloom" width="44" height="44"/></svg></button>
+      <button class="frame round g-r2" aria-label="Open photo 6"><div class="in"><img src="photos/6.jpg" alt="Monica Va-ay, photo 6" onerror="this.remove()"></div><svg class="flora fl-bloom tl" viewBox="0 0 44 44" aria-hidden="true"><use href="#rose" width="44" height="44"/></svg></button>
     </div>
   </section>
 
@@ -97,6 +236,7 @@
   </dialog>
 
   <!-- 5 · ROSES + CANDLES -->
+  <div class="divider" aria-hidden="true"><svg class="flora" viewBox="0 0 300 44"><use href="#divider" width="300" height="44"/></svg></div>
   <section id="court">
     <h2>The people who make it special</h2>
     <p class="lede">Eighteen roses and eighteen candles, for the people Monica Va-ay holds dear.</p>
@@ -106,6 +246,8 @@
     </div>
 
     <div class="scroll">
+      <svg class="flora fl-scroll tr" viewBox="0 0 200 160" aria-hidden="true"><use href="#cluster" width="200" height="160"/></svg>
+      <svg class="flora fl-scroll bl" viewBox="0 0 200 160" aria-hidden="true"><use href="#cluster" width="200" height="160"/></svg>
       <div class="roll"></div>
       <div class="paper">
         <div id="panel-roses" role="tabpanel" aria-labelledby="tab-roses">
@@ -121,6 +263,7 @@
   </section>
 
   <!-- 6 · PROGRAM -->
+  <div class="divider" aria-hidden="true"><svg class="flora" viewBox="0 0 300 44"><use href="#divider" width="300" height="44"/></svg></div>
   <section id="program">
     <h2>The 18th program</h2>
     <p class="lede">How the evening unfolds.</p>
@@ -136,6 +279,7 @@
   </section>
 
   <!-- 7 · DRESS CODE -->
+  <div class="divider" aria-hidden="true"><svg class="flora" viewBox="0 0 300 44"><use href="#divider" width="300" height="44"/></svg></div>
   <section id="dress">
     <h2>Dress code</h2>
     <p class="lede">Formal attire, in the colors of the night.</p>
@@ -148,15 +292,19 @@
   </section>
 
   <!-- 8 · RSVP -->
+  <div class="divider" aria-hidden="true"><svg class="flora" viewBox="0 0 300 44"><use href="#divider" width="300" height="44"/></svg></div>
   <section id="rsvp" class="rsvp">
-    <div class="card">
+    <div class="card rsvp-card">
+      <svg class="flora fl-card tl" viewBox="0 0 200 160" aria-hidden="true"><use href="#cluster" width="200" height="160"/></svg>
+      <svg class="flora fl-card br" viewBox="0 0 200 160" aria-hidden="true"><use href="#cluster" width="200" height="160"/></svg>
       <h2>RSVP</h2>
-      <p>Please let us know if you can make it by January 2, 2027.</p>
+      <p>Please let us know if you can make it by February 12, 2027.</p>
       <a class="btn" id="rsvpLink" href="#" target="_blank" rel="noopener">Reply now</a>
     </div>
     <p class="sign">With love, Monica Va-ay and family</p>
   </section>
 
+  <div class="divider" aria-hidden="true"><svg class="flora" viewBox="0 0 300 44"><use href="#divider" width="300" height="44"/></svg></div>
   <footer>We can't wait to celebrate with you.</footer>
 </main>
 
