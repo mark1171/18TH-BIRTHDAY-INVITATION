@@ -202,7 +202,7 @@ h2{
   box-shadow:0 0 34px 10px rgba(124,92,255,.55);
 }
 .lantern i::before{content:"";position:absolute;left:6px;right:6px;top:-6px;height:8px;border-radius:4px 4px 0 0;background:#2a1670}
-.lantern.l1{left:6%;--len:30px}
+.lantern.l1{left:6%;--len:110px}
 .lantern.l2{right:6%;--len:64px;animation-delay:-3s;animation-duration:7s}
 @keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
 
@@ -329,3 +329,80 @@ footer{padding:0 1.5rem 4rem;color:var(--muted);font-size:1rem}
   .hero .rise{opacity:1;transform:none;animation:none!important}
   .env,.letter,.env-flap,.intro{transition-duration:.01s!important;transition-delay:0s!important}
 }
+
+/* =========================================================
+   FLOWERS + ORNAMENTS
+   (the drawings themselves live in the hidden <svg> at the
+   top of index.html — here we only place and size them)
+   ========================================================= */
+.flora{display:block;pointer-events:none;filter:drop-shadow(0 0 10px rgba(124,92,255,.55))}
+
+/* envelope bouquet */
+.fl-env{position:absolute;left:-20px;bottom:-30px;width:140px;height:auto;z-index:6}
+
+/* bouquets either side of the portrait */
+.fl-p{position:absolute;bottom:-26px;width:136px;height:auto;z-index:3}
+.fl-p.l{left:-54px}
+.fl-p.r{right:-54px;transform:scaleX(-1)}
+
+/* twinkling sparkles around the name */
+.twinkle{position:absolute;width:16px;height:16px}
+.sp1{left:12%;top:25%}
+.sp2{right:11%;top:21%;width:11px;height:11px}
+.sp3{right:19%;top:36%;width:9px;height:9px}
+.twinkle{animation:twinkle 3.4s ease-in-out infinite}
+.sp2{animation-delay:-1.1s}.sp3{animation-delay:-2.2s}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+
+/* section dividers */
+.divider{display:flex;justify-content:center;margin:-3rem 0;position:relative;z-index:1}
+.divider svg{width:min(78%,300px);height:auto}
+
+/* bouquets that sit on a card corner */
+.card.loc,.rsvp-card{position:relative}
+.fl-card{position:absolute;width:112px;height:auto;z-index:2}
+.fl-card.tr{top:-50px;right:-16px}
+.fl-card.tl{top:-40px;left:-12px;transform:scaleX(-1)}
+.fl-card.br{bottom:-34px;right:-10px;transform:scale(1,-1);width:96px}
+
+/* bouquets on the roses scroll */
+.fl-scroll{position:absolute;width:112px;height:auto;z-index:4}
+.fl-scroll.tr{top:-46px;right:-14px;transform:scaleX(-1)}
+.fl-scroll.bl{bottom:-42px;left:-14px;transform:scale(1,-1)}
+
+@media (prefers-reduced-motion:reduce){.twinkle{animation:none;opacity:.8}}
+
+.rsvp .sign{margin-top:2.8rem}
+
+/* =========================================================
+   MORE FLOWERS: crown, wreath, frame blooms, vines, petals
+   ========================================================= */
+/* crown across the top of the portrait */
+.fl-crown{position:absolute;left:50%;top:-30px;width:min(92%,250px);height:auto;transform:translateX(-50%);z-index:3}
+
+/* wreath around the 18 badge */
+.fl-wreath{position:absolute;left:50%;bottom:-54px;width:124px;height:124px;transform:translateX(-50%);z-index:3}
+.age{z-index:4}
+
+/* second bouquet on the envelope */
+.fl-env2{position:absolute;right:-18px;top:-30px;width:112px;height:auto;z-index:6;transform:scale(-1,-1)}
+
+/* little blooms on the photo frames */
+.gallery .frame{position:relative}
+.fl-bloom{position:absolute;width:44px;height:44px;z-index:2}
+.fl-bloom.tl{top:-14px;left:-12px}
+.fl-bloom.tr{top:-14px;right:-12px}
+.fl-bloom.bl{bottom:-14px;left:-12px}
+.fl-bloom.br{bottom:-14px;right:-12px}
+
+/* vines growing down both edges of the page */
+.page::before,.page::after{
+  content:"";position:absolute;top:0;bottom:0;width:40px;z-index:-1;pointer-events:none;opacity:.55;
+  background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='400' viewBox='0 0 40 400'><path d='M14 0 C30 50 0 100 14 150 C28 200 0 250 14 300 C28 350 0 380 14 400' fill='none' stroke='%237c5cff' stroke-opacity='.6' stroke-width='1.6'/><path d='M15 75 C21 66 33 66 39 73 C33 81 21 82 15 75Z' fill='%234a34cf' fill-opacity='.85'/><path d='M14 225 C8 216 -4 216 -10 223 C-4 231 8 232 14 225Z' fill='%234a34cf' fill-opacity='.85' transform='translate(10 0)'/><path d='M14 361 C20 352 32 352 38 359 C32 367 20 368 14 361Z' fill='%234a34cf' fill-opacity='.85'/><path d='M14 20 C20 13 30 14 34 20 C29 27 20 27 14 20Z' fill='%236d4df0' fill-opacity='.7'/><path d='M14 290 C8 282 -1 283 -4 289 C1 296 8 297 14 290Z' fill='%236d4df0' fill-opacity='.7' transform='translate(4 0)'/><circle cx='14' cy='115' r='3.2' fill='%23a78bfa'/><circle cx='15' cy='188' r='2.6' fill='%237f94ff'/><circle cx='14' cy='262' r='3.2' fill='%23a78bfa'/><circle cx='15' cy='335' r='2.6' fill='%237f94ff'/></svg>") repeat-y center top/40px 400px;
+}
+.page::before{left:0}
+.page::after{right:0;transform:scaleX(-1)}
+
+/* falling petals (drawn by script.js) */
+#petals{position:fixed;inset:0;width:100%;height:100%;z-index:50;pointer-events:none}
+footer{padding-top:1rem}
